@@ -1,0 +1,11 @@
+GET
+Access-Control-Allow-Origin
+Access-Control-Allow-Origin	'*'
+
+OPTIONS
+Access-Control-Allow-Headers
+Access-Control-Allow-Methods
+Access-Control-Allow-Origin
+Access-Control-Allow-Headers 'Content-Type,X-Amz-Date,Authorization'
+Access-Control-Allow-Methods 'GET,POST'
+Access-Control-Allow-Origin	 '*'

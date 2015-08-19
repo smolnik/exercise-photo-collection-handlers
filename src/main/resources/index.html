@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <title>Your Photo Client</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/phc.css" >
+        <link type="text/css" rel="stylesheet" href="dhtmlgoodies_calendar/dhtmlgoodies_calendar.css?random=20051112" media="screen">
+        <script type="text/javascript">
+
+            function populatePhotoCollection(date) {
+                var xmlhttp = new XMLHttpRequest();
+                var url = "https://ABC.execute-api.us-east-1.amazonaws.com/test/XYZ-photo-collection?photoTakenDate=" + date;
+                xmlhttp.onreadystatechange = function () {
+                    if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                       	var respAsText = xmlhttp.responseText;
+                   		render(JSON.parse(respAsText).photoItems);
+                    }
+                };
+                xmlhttp.open("GET", url, true);
+                xmlhttp.send();
+            }
+
+            function render(photoItems) {
+                var gallery = document.getElementById("gallery");
+                cleanUp(gallery);
+                for (i = 0; i < photoItems.length; i++) {
+                    var galleryDiv = document.createElement("div");
+                    var ph = photoItems[i];
+                    galleryDiv.setAttribute("class", "img");
+                    var ahref = document.createElement("a");
+                    var photoKey = ph.photoKey;
+                    var thumbnailKey = ph.thumbnailKey;
+                    var photoBoxId = "photoBox" + i;
+                    ahref.setAttribute("href", "#");
+                    ahref.setAttribute("onmouseover", "displayPhoto('" + photoBoxId + "',1,'" + photoKey + "')");
+                    ahref.setAttribute("onmouseout", "displayPhoto('" + photoBoxId + "',0)");
+                    var photoBoxDiv = document.createElement("div");
+                    photoBoxDiv.setAttribute("id", photoBoxId);
+                    photoBoxDiv.setAttribute("class", "photoBox");
+                    var photo = document.createElement("img");
+                    photo.setAttribute("src", "");
+                    photoBoxDiv.appendChild(photo);
+                    var photoThumb = document.createElement("img");
+                    photoThumb.setAttribute("src", thumbnailKey);
+                    var descDiv = document.createElement("div");
+                    descDiv.innerHTML = ph.metadata[0] + "<br>" + ph.metadata[1];
+                    ahref.appendChild(photoBoxDiv);
+                    ahref.appendChild(photoThumb);
+                    galleryDiv.appendChild(ahref);
+                    galleryDiv.appendChild(descDiv);
+                    gallery.appendChild(galleryDiv);
+                }
+            }
+
+            function cleanUp(list) {
+                while (list.hasChildNodes()) {
+                    list.removeChild(list.firstChild);
+                }
+            }
+
+            function today() {
+                var today = new Date();
+                var dd = today.getDate();
+                var mm = today.getMonth() + 1;
+                var yyyy = today.getFullYear();
+                if (dd < 10) {
+                    dd = '0' + dd;
+                }
+
+                if (mm < 10) {
+                    mm = '0' + mm;
+                }
+                return today = yyyy + '-' + mm + '-' + dd;
+            }
+
+            function displayPhoto(id, show, img) {
+                if (show === 1) {
+                    document.getElementById(id).style.visibility = "visible";
+                    document.getElementById(id).childNodes[0].src = img;
+                } else {
+                    document.getElementById(id).style.visibility = "hidden";
+                }
+            }
+
+            onload = function () {
+                var currentDate = today();
+                document.getElementById('date').value = currentDate;
+                populatePhotoCollection(currentDate);
+                setTimeout(setInterval(function () {
+                    populatePhotoCollection(document.getElementById('date').value);
+                }, 2500), 2500);
+            };
+        </script>
+        <script type="text/javascript" src="dhtmlgoodies_calendar/dhtmlgoodies_calendar.js?random=20060118"></script>
+    </head>
+    <body class="base">
+        <div class="base">
+            <form id="calendar">
+                <input id="date" type="text" value="" readonly onchange="populatePhotoCollection(this.value)"><input type="button" value="Pick out a date" onclick="displayCalendar(document.getElementById('date'), 'yyyy-mm-dd', this)">
+            </form>    
+            <div id="gallery" class="center"> 
+            </div>
+        </div>
+    </body>
+</html> 
