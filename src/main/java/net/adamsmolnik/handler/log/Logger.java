@@ -19,8 +19,8 @@ public class Logger {
 		doLog("[" + getBaseMessage(message) + "]");
 	}
 
-	public void log(Date then, String message) {
-		doLog("[duration since then: " + (new Date().getTime() - then.getTime()) + ", " + getBaseMessage(message) + "]");
+	public void log(long then, String message) {
+		doLog("[duration since then: " + (System.currentTimeMillis() - then) + ", " + getBaseMessage(message) + "]");
 	}
 
 	private String getBaseMessage(String message) {

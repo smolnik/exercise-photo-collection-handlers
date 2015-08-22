@@ -1,15 +1,17 @@
 <html>
-    <head>
-        <title>Your Photo Client</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/phc.css" >
-        <link type="text/css" rel="stylesheet" href="dhtmlgoodies_calendar/dhtmlgoodies_calendar.css?random=20051112" media="screen">
-        <script type="text/javascript">
+<head>
+<title>Your Photo Client</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" type="text/css" href="css/phc.css">
+<link type="text/css" rel="stylesheet"
+	href="dhtmlgoodies_calendar/dhtmlgoodies_calendar.css?random=20051112"
+	media="screen">
+<script type="text/javascript">
 
             function populatePhotoCollection(date) {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "https://ABC.execute-api.us-east-1.amazonaws.com/test/XYZ-photo-collection?photoTakenDate=" + date;
+                var url = "https:///yqu5kp3ot3.execute-api.us-east-1.amazonaws.com/test/024-photo-collection-handler?photoTakenDate=" + date;
                 xmlhttp.onreadystatechange = function () {
                     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                        	var respAsText = xmlhttp.responseText;
@@ -91,15 +93,18 @@
                 }, 2500), 2500);
             };
         </script>
-        <script type="text/javascript" src="dhtmlgoodies_calendar/dhtmlgoodies_calendar.js?random=20060118"></script>
-    </head>
-    <body class="base">
-        <div class="base">
-            <form id="calendar">
-                <input id="date" type="text" value="" readonly onchange="populatePhotoCollection(this.value)"><input type="button" value="Pick out a date" onclick="displayCalendar(document.getElementById('date'), 'yyyy-mm-dd', this)">
-            </form>    
-            <div id="gallery" class="center"> 
-            </div>
-        </div>
-    </body>
-</html> 
+<script type="text/javascript"
+	src="dhtmlgoodies_calendar/dhtmlgoodies_calendar.js?random=20060118"></script>
+</head>
+<body class="base">
+	<div class="base">
+		<form id="calendar">
+			<input id="date" type="text" value="" readonly
+				onchange="populatePhotoCollection(this.value)"><input
+				type="button" value="Pick out a date"
+				onclick="displayCalendar(document.getElementById('date'), 'yyyy-mm-dd', this)">
+		</form>
+		<div id="gallery" class="center"></div>
+	</div>
+</body>
+</html>

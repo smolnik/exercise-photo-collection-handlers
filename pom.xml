@@ -49,6 +49,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>001-photo-collection-handlers</finalName>
+		<finalName>024-photo-collection-handlers</finalName>
 	</build>
 </project>
