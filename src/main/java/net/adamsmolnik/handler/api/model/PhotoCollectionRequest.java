@@ -6,8 +6,24 @@ package net.adamsmolnik.handler.api.model;
  */
 public class PhotoCollectionRequest {
 
-	public String principalId;
+	private String principalId;
 
-	public String photoTakenDate;
+	private String photoTakenDate;
+
+	public String getPrincipalId() {
+		return principalId;
+	}
+
+	public void setPrincipalId(String principalId) {
+		this.principalId = principalId;
+	}
+
+	public String getPhotoTakenDate() {
+		return photoTakenDate;
+	}
+
+	public void setPhotoTakenDate(String photoTakenDate) {
+		this.photoTakenDate = photoTakenDate;
+	}
 
 }

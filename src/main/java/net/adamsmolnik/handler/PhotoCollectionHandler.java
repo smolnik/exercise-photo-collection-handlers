@@ -29,17 +29,18 @@ public class PhotoCollectionHandler {
 	private static final String STUDENT_PREFIX = "024";
 
 	public PhotoCollectionResponse handle(PhotoCollectionRequest request, Context context) {
-		validateRequest(request);
 		long then = System.currentTimeMillis();
+		validateRequest(request);
 		Logger log = new Logger(context);
-		log.log("Request for " + request.photoTakenDate + " received");
-		String ptDate = request.photoTakenDate;
+		String ptDate = request.getPhotoTakenDate();
+		String principalId = request.getPrincipalId();
+		log.log("Request for " + request.getPhotoTakenDate() + " received");
 
 		DynamoDB db = new DynamoDB(new AmazonDynamoDBClient());
 		Index index = db.getTable(STUDENT_PREFIX + "-codepot-photos").getIndex("photoTakenDate-index");
-		ItemCollection<QueryOutcome> items = index.query(new KeyAttribute("userId", mapIdentity(request.principalId)),
+		ItemCollection<QueryOutcome> items = index.query(new KeyAttribute("userId", mapIdentity(principalId)),
 				new RangeKeyCondition("photoTakenDate").eq(ptDate));
-		log.log(then, "QueryOutcome received for " + request.photoTakenDate);
+		log.log(then, "QueryOutcome received for " + ptDate);
 		PhotoCollectionResponse response = new PhotoCollectionResponse(ptDate,
 				StreamSupport.stream(items.spliterator(), false)
 						.map(item -> new PhotoItem(item.getString("bucket"), item.getString("photoKey"), item.getString("thumbnailKey"),
@@ -51,7 +52,7 @@ public class PhotoCollectionHandler {
 	}
 
 	private void validateRequest(PhotoCollectionRequest request) {
-		String ptDate = request.photoTakenDate;
+		String ptDate = request.getPhotoTakenDate();
 		if (ptDate == null || ptDate.trim().isEmpty()) {
 			throw new IllegalArgumentException("photoTakenDate parameter cannot be null or empty");
 		}
