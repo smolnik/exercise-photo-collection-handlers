@@ -14,3 +14,5 @@ Access-Control-Allow-Origin
 Access-Control-Allow-Headers 'Content-Type,X-Amz-Date,Authorization'
 Access-Control-Allow-Methods 'GET,POST'
 Access-Control-Allow-Origin	 '*'
+
+A few your photos e.q. from your last holiday place for our exercise 
