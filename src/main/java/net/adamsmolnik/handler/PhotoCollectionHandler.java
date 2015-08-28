@@ -26,7 +26,7 @@ import net.adamsmolnik.handler.log.Logger;
  */
 public class PhotoCollectionHandler {
 
-	private static final String STUDENT_PREFIX = "024";
+	private static final String STUDENT_PREFIX = "023";
 
 	public PhotoCollectionResponse handle(PhotoCollectionRequest request, Context context) {
 		long then = System.currentTimeMillis();

@@ -1,6 +1,22 @@
+Lambda handlers:
+net.adamsmolnik.handler.UploadPhotoHandler::handle
+net.adamsmolnik.handler.PhotoCollectionHandler::handle
+
+
+Content-Type:
+application/json
+
+API/Lambda mapping:
+
 {
 "photoTakenDate" : "$input.params('photoTakenDate')"
 }
+
+Query parameter:
+?photoTakenDate=
+
+Query parameter example:
+?photoTakenDate=2015-06-22
 
 Cross-origin resource sharing (CORS):
 GET
@@ -14,5 +30,3 @@ Access-Control-Allow-Origin
 Access-Control-Allow-Headers 'Content-Type,X-Amz-Date,Authorization'
 Access-Control-Allow-Methods 'GET,POST'
 Access-Control-Allow-Origin	 '*'
-
-A few your photos e.q. from your last holiday place for our experiments and exercises 
