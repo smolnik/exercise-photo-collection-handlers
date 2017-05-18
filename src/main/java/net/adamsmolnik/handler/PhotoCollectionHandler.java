@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Index;
 import com.amazonaws.services.dynamodbv2.document.Item;
@@ -26,7 +26,9 @@ import net.adamsmolnik.handler.log.Logger;
  */
 public class PhotoCollectionHandler {
 
-	private static final String STUDENT_PREFIX = "023";
+	private static final String STUDENT_PREFIX = "000";
+
+	private final DynamoDB db = new DynamoDB(AmazonDynamoDBClientBuilder.defaultClient());
 
 	public PhotoCollectionResponse handle(PhotoCollectionRequest request, Context context) {
 		long then = System.currentTimeMillis();
@@ -36,8 +38,7 @@ public class PhotoCollectionHandler {
 		String principalId = request.getPrincipalId();
 		log.log("Request for " + request.getPhotoTakenDate() + " received");
 
-		DynamoDB db = new DynamoDB(new AmazonDynamoDBClient());
-		Index index = db.getTable(STUDENT_PREFIX + "-codepot-photos").getIndex("photoTakenDate-index");
+		Index index = db.getTable(STUDENT_PREFIX + "-photos").getIndex("photoTakenDate-index");
 		ItemCollection<QueryOutcome> items = index.query(new KeyAttribute("userId", mapIdentity(principalId)),
 				new RangeKeyCondition("photoTakenDate").eq(ptDate));
 		log.log(then, "QueryOutcome received for " + ptDate);

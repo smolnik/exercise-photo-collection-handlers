@@ -8,12 +8,12 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-dynamodb</artifactId>
-			<version>1.10.11</version>
+			<version>1.11.128</version>
 		</dependency>
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-lambda-java-core</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -49,6 +49,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<finalName>023-photo-collection-handlers</finalName>
+		<finalName>000-photo-collection-handlers</finalName>
 	</build>
 </project>

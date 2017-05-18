@@ -11,7 +11,7 @@
 
             function populatePhotoCollection(date) {
                 var xmlhttp = new XMLHttpRequest();
-                var url = "https:///yqu5kp3ot3.execute-api.us-east-1.amazonaws.com/test/024-photo-collection-handler?photoTakenDate=" + date;
+                var url = "https://di3n153v81.execute-api.us-east-1.amazonaws.com/test/photo-collection?photoTakenDate=" + date;
                 xmlhttp.onreadystatechange = function () {
                     if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
                        	var respAsText = xmlhttp.responseText;
