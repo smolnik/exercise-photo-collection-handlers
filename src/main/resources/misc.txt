@@ -1,7 +1,28 @@
+Functions:
+XYZ-upload-photo-handler
+https://s3.amazonaws.com/000-lambda-jars/XYZ-upload-photo-handlers.jar
+
+XYZ-photo-collection-handler
+https://s3.amazonaws.com/000-lambda-jars/XYZ-photo-collection-handlers.jar
+
 Lambda handlers:
 net.adamsmolnik.handler.UploadPhotoHandler::handle
 net.adamsmolnik.handler.PhotoCollectionHandler::handle
 
+Dynamo DB:
+table name: XYZ-photos
+
+primary partition key: userId (String)
+primary sort key: photoKey (String)
+
+LSI: 
+name: photoTakenDate-index
+partition key: userId (String) 
+sort key: photoTakenDate (String) 
+
+API name: XYZ-photo-collection-api
+
+Resource name: photo-collection
 
 Content-Type:
 application/json
